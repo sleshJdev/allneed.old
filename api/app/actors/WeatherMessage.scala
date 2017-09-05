@@ -1,5 +1,3 @@
 package actors
 
-class WeatherMessage {
-
-}
+case class WeatherMessage(city: String)
