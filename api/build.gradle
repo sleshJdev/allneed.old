@@ -1,0 +1,46 @@
+apply plugin: 'play'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.iatoki:gradle-play-idea:0.4.1'
+    }
+}
+
+apply plugin: 'org.iatoki.play-idea'
+
+repositories {
+    jcenter()
+    ivy {
+        url "https://repo.typesafe.com/typesafe/ivy-releases/"
+        layout "pattern", {
+            ivy "[organisation]/[module]/[revision]/ivys/ivy.xml"
+            artifact "[organisation]/[module]/[revision]/jars/[artifact].[ext]"
+        }
+    }
+}
+
+model {
+    components {
+        play {
+            platform play: '2.5.8', scala: '2.11', java: '1.8'
+            injectedRoutesGenerator = true
+        }
+    }
+}
+
+dependencies {
+    play 'com.typesafe.play:play-slick_2.11:2.1.0'
+    play 'com.typesafe.play:play-slick-evolutions_2.11:2.1.0'
+
+    play 'org.postgresql:postgresql:9.4-1200-jdbc41'
+}
+
+idea.module.iml {
+    whenMerged { module ->
+        module.dependencies*.exported = true
+    }
+}
