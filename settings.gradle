@@ -1,4 +1,4 @@
 include 'client'
 include 'api'
 
-rootProject.name = 'app-1-akka-reactjs'
+rootProject.name = 'allneed'
